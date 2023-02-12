@@ -1,5 +1,9 @@
 # AI Assets Generator
 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/ai-assets-logo.png" alt="dall-e" width="800"/>
+</p>
+
 AI Assets Generator is a Python-based tool for generating artificial intelligence-powered images and searching for images on Bing. This tool can also be used as an AI game asset art generator.
 
 ## AI Assets Generator App.
