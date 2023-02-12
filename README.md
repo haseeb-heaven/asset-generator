@@ -2,15 +2,25 @@
 
 AI Assets Generator is a Python-based tool for generating artificial intelligence-powered images and searching for images on Bing. This tool can also be used as an AI game asset art generator.
 
+## AI Assets Generator App.
+## Dall-e Image search:
+![dall-e](https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/dalle-image-search.png)
+## Bing Image search:
+![dall-e](https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/bing-image-search.png)
+
 ## Features
 
 * Generate OpenAI images with the provided prompt text
 * Save OpenAI-generated images
 * Clear OpenAI-generated images
 * Search for images on Bing using the provided search query
-* Save Bing images
-* Clear Bing search results
 * Modular code structure for easy maintenance and expansion
+* The OpenAI section of the tool allows users to generate images using the DALL-E API. This API uses a neural network to generate images based on user prompts. Users can enter a text prompt and the neural network will generate an image based on that prompt.
+* The tool also includes a Bing Image Search section, which allows users to search for images on the internet using the Bing Search API. Users can enter a search query and the tool will display a list of images related to that query.
+* The Bing Image Search section also includes the ability to save images to the user's local filesystem. This can be useful for collecting a set of images for use in a project.
+* The tool includes error handling and validation for user inputs, so if the user enters an invalid prompt or search query, they will be notified with a message.
+* The code is modular and organized into different files for each section of the tool. This makes it easy to modify or extend the tool in the future.
+
 
 ## Getting Started
 
@@ -32,14 +42,16 @@ For Windows, use the following command instead:
 
 5. To run the program, execute the following command:
 
-```python ImageAIGenerator.py```
+```python AIAssetsGenerator.py```
 
 ## Usage
 Run the ImageAIGenerator.py file to start the application.
 
 The OpenAI tab allows you to generate AI-generated images using DALL-E. Enter your prompt text in the "Enter Prompt" textbox and click on "Generate Image" to see the generated image.</br>
+
 You can save the image using the "Save Image" button, and clear the prompt and image using the "Clear Image" button.
 The Bing tab allows you to search for images using the Bing image search API.</br>
+
 Enter your search query in the "Enter Search Query" textbox and click on "Search Images" to see the search results. Click on any image to see the full image, and save the image using the "Save Image" button. You can clear the search query, image, and URL using the "Clear Image" button.</br>
 
 ## Packages Used
@@ -59,4 +71,4 @@ Enter your search query in the "Enter Search Query" textbox and click on "Search
 
 ## Author
 
-AI Assets Generator was developed by [Haseeb Mir].
+AI Assets Generator was developed by HeavenHM.
