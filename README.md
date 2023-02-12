@@ -3,10 +3,14 @@
 AI Assets Generator is a Python-based tool for generating artificial intelligence-powered images and searching for images on Bing. This tool can also be used as an AI game asset art generator.
 
 ## AI Assets Generator App.
-## Dall-e Image search:
-![dall-e](https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/dalle-image-search.png)
-## Bing Image search:
-![dall-e](https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/bing-image-search.png)
+<p align="center">
+    <img src="https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/dalle-image-search.png" alt="dall-e" width="800"/>
+</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/bing-image-search.png" alt="dall-e" width="800"/>
+</p>
+
+
 
 ## Features
 
