@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from tkinter import filedialog, messagebox
 import traceback
 import requests
@@ -9,7 +10,27 @@ import tkinter as tk
 # Set up API credentials for OpenAI
 deepmind_api_key = os.getenv("DEEPAI_API_KEY")
 
-# Check a string for emptyness and give error message if it is empty.
+# Set up logging
+# Create a logger and set the log level
+logger = logging.getLogger('AiAssetsGenerator')
+logger.setLevel(logging.DEBUG)
+
+# Setup logs for basic logging
+logging.basicConfig(filename='AiAssetsGenerator.log', level=logging.INFO)
+
+# Create a file handler and set the log level
+log_file = os.path.join(os.getcwd(), 'AiAssetsGenerator.log')
+file_handler = logging.FileHandler(log_file)
+file_handler.setLevel(logging.DEBUG)
+
+# Create a formatter and add it to the file handler
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+
+# Add the file handler to the logger
+logger.addHandler(file_handler)
+
+# Check a string for emptiness and give error message if it is empty.
 def check_valid_prompt(prompt: str):
     if not prompt:
         messagebox.showerror(title="ERROR", message="Please enter a prompt to generate an image from.")
@@ -46,18 +67,22 @@ def generate_deepai_image(prompt, save_url, picture_box):
                 raise Exception(f"Error occurred in generate_deepai_image() Failed to fetch image URL")
         else:
             raise Exception(f"Error occurred in generate_deepai_image() at line API request failed")
+        
+        logger.info(f"Generated deepai image for prompt: {prompt}")
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         file, line, func, text = tb[-1]
-        messagebox.showerror("ERROR",f"Exception in File {file} and method {func}() at line {line}: {e}")
+        logger.error(f"Exception in File {file} and method {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR","Exception occured please check the log file for more details.")
 
-#Create a button to clear the OpenAI Image section
+# Create a button to clear the OpenAI Image section
 def clear_deepai_image(openai_prompt_text, openai_picture_box, openai_url_text):
     openai_prompt_text.delete(0, tk.END)
     openai_picture_box.image = None
     openai_picture_box.configure(image=tk.PhotoImage())
     openai_url_text.delete('1.0', tk.END)
 
+    logger.info("Cleared DeepAI image section")
 
 def save_deepai_image(image_url, save_url_text):
     try:
@@ -82,4 +107,5 @@ def save_deepai_image(image_url, save_url_text):
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         file, line, func, text = tb[-1]
-        messagebox.showerror("ERROR",f"Exception in File {file} and method {func}() at line {line}: {e}")
+        logger.error(f"Exception in File {file} and method {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR","Exception occured please check the log file for more details.")

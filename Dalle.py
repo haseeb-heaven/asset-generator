@@ -1,17 +1,35 @@
 import os
-import ssl
-import tkinter as tk
-from tkinter import messagebox
-from tkinter import filedialog
+import sys
+import logging
+from tkinter import filedialog, messagebox
 import traceback
-from PIL import Image, ImageTk
-import urllib
+import urllib.request
 import requests
+import tkinter as tk
+from io import BytesIO
+from PIL import Image, ImageTk
 import openai
-from io import BytesIO
-from io import BytesIO
-import urllib
-from PIL import Image
+import ssl
+
+# Set up logging
+# Create a logger and set the log level
+logger = logging.getLogger('AiAssetsGenerator')
+logger.setLevel(logging.DEBUG)
+
+# Setup logs for basic logging
+logging.basicConfig(filename='AiAssetsGenerator.log', level=logging.INFO)
+
+# Create a file handler and set the log level
+log_file = os.path.join(os.getcwd(), 'AiAssetsGenerator.log')
+file_handler = logging.FileHandler(log_file)
+file_handler.setLevel(logging.DEBUG)
+
+# Create a formatter and add it to the file handler
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+
+# Add the file handler to the logger
+logger.addHandler(file_handler)
 
 # Set up API credentials for OpenAI
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -56,10 +74,16 @@ def generate_openai_image(prompt, openai_picture_box, openai_url_text):
         # Display the image URL in the text box
         openai_url_text.delete('1.0', tk.END)
         openai_url_text.insert(tk.END, img_url)
+
+        # Log success message
+        logging.info(f"Successfully generated DALL-E image from prompt: {prompt}")
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         filename, line, func, text = tb[-1]
-        messagebox.showerror("ERROR",f"Exception in {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR","Exception occured please check the log file for more details.")
+
+        # Log error message
+        logging.error(f"Exception in {func}() at line {line}: {e}")
 
 def save_openai_image(url, openai_url_text):
     try:
@@ -83,8 +107,10 @@ def save_openai_image(url, openai_url_text):
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         file, line, func, text = tb[-1]
-        messagebox.showerror("ERROR",f"Exception in File {file} and method {func}() at line {line}: {e}")
-            
+        messagebox.showerror("ERROR","Exception occured please check the log file for more details.")
+        # Log error message
+        logging.error(f"Exception in {func}() at line {line}: {e}")
+        
 #Create a button to clear the OpenAI Image section
 def clear_openai_image(openai_prompt_text, openai_picture_box, openai_url_text):
     openai_prompt_text.delete(0, tk.END)
