@@ -1,4 +1,4 @@
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import tkinter as tk
 import traceback
 import urllib.request
@@ -13,8 +13,19 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
+# Check a string for emptyness and give error message if it is empty.
+def check_valid_query(prompt: str):
+    if not prompt:
+        messagebox.showerror("ERROR", "Please enter a query to search an image from.")
+        return False
+    else:
+        return True
+
 def search_bing_images(query, bing_picture_box, bing_url_text):
     try:
+        # Check for empty prompt.
+        if not check_valid_query(query):
+            return
         # Download and display the search results
         image_urls = bing_image_urls(query, limit=1, adult_filter_off=True)
         image_url = image_urls[0]
@@ -35,7 +46,7 @@ def search_bing_images(query, bing_picture_box, bing_url_text):
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         file, line, func, text = tb[-1]
-        print(f"Exception in File {file} and method {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR",f"Exception in File {file} and method {func}() at line {line}: {e}")
 
 def save_bing_image(url):
     try:
@@ -53,7 +64,7 @@ def save_bing_image(url):
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         file, line, func, text = tb[-1]
-        print(f"Exception in File {file} and method {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR",f"Exception in File {file} and method {func}() at line {line}: {e}")
         
 def clear_bing_images(bing_query_text, bing_picture_box, bing_url_text):
     bing_query_text.delete(0, tk.END)

@@ -21,9 +21,20 @@ ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
+# Check a string for emptyness and give error message if it is empty.
+def check_valid_prompt(prompt: str):
+    if not prompt:
+        messagebox.showerror(title="ERROR", message="Please enter a prompt to generate an image from.")
+        return False
+    else:
+        return True
 
 def generate_openai_image(prompt, openai_picture_box, openai_url_text):
     try:
+        # Check for empty prompt.
+        if not check_valid_prompt(prompt):
+            return
+        
         # Generate the image from OpenAI API
         response = openai.Image.create(
             prompt=prompt,
@@ -48,7 +59,7 @@ def generate_openai_image(prompt, openai_picture_box, openai_url_text):
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         filename, line, func, text = tb[-1]
-        print(f"Exception in {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR",f"Exception in {func}() at line {line}: {e}")
 
 def save_openai_image(url, openai_url_text):
     try:
@@ -72,7 +83,7 @@ def save_openai_image(url, openai_url_text):
     except Exception as e:
         tb = traceback.extract_tb(e.__traceback__)
         file, line, func, text = tb[-1]
-        print(f"Exception in File {file} and method {func}() at line {line}: {e}")
+        messagebox.showerror("ERROR",f"Exception in File {file} and method {func}() at line {line}: {e}")
             
 #Create a button to clear the OpenAI Image section
 def clear_openai_image(openai_prompt_text, openai_picture_box, openai_url_text):

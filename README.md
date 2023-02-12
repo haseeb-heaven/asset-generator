@@ -18,14 +18,15 @@ AI Assets Generator is a Python-based tool for generating artificial intelligenc
 
 ## Features
 
-* Generate OpenAI images with the provided prompt text
-* Save OpenAI-generated images
-* Clear OpenAI-generated images
+* Generate AI images with the provided prompt text
+* Save and Clear generated images
 * Search for images on Bing using the provided search query
+* Generate AI-generated images using **DeepAI's** text-to-image API
+* Generate AI-generated images using **DALL-E's** text-to-image API
 * Modular code structure for easy maintenance and expansion
 * The OpenAI section of the tool allows users to generate images using the DALL-E API. This API uses a neural network to generate images based on user prompts. Users can enter a text prompt and the neural network will generate an image based on that prompt.
 * The tool also includes a Bing Image Search section, which allows users to search for images on the internet using the Bing Search API. Users can enter a search query and the tool will display a list of images related to that query.
-* The Bing Image Search section also includes the ability to save images to the user's local filesystem. This can be useful for collecting a set of images for use in a project.
+* The **DeepAI's** Image generate section also includes the ability to save images to the user's local filesystem. This can be useful for collecting a set of images for use in a project.
 * The tool includes error handling and validation for user inputs, so if the user enters an invalid prompt or search query, they will be notified with a message.
 * The code is modular and organized into different files for each section of the tool. This makes it easy to modify or extend the tool in the future.
 
@@ -48,6 +49,14 @@ For Windows, use the following command instead:
 
 ```set OPENAI_API_KEY=<your API key>```
 
+4. To generate DeepAI images, you need to have an DeepAI API key. You can set the API key as an environment variable using the following command:
+
+```export DEEPAI_API_KEY=<your API key>```
+
+For Windows, use the following command instead:
+
+```set DEEPAI_API_KEY=<your API key>```
+
 5. To run the program, execute the following command:
 
 ```python AIAssetsGenerator.py```
@@ -56,6 +65,8 @@ For Windows, use the following command instead:
 Run the ImageAIGenerator.py file to start the application.
 
 The OpenAI tab allows you to generate AI-generated images using DALL-E. Enter your prompt text in the "Enter Prompt" textbox and click on "Generate Image" to see the generated image.</br>
+
+The OpenAI tab allows you to generate AI-generated images using DeepAI. Enter your prompt text in the "Enter Prompt" textbox and click on "Generate Image" to see the generated image.</br>
 
 You can save the image using the "Save Image" button, and clear the prompt and image using the "Clear Image" button.
 The Bing tab allows you to search for images using the Bing image search API.</br>

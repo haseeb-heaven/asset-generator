@@ -1,0 +1,5 @@
+tkinter
+requests
+Pillow
+openai
+bing_image_urls
