@@ -10,6 +10,10 @@ import requests
 import ssl
 import os
 
+#setting image box size for this UI application.
+dalle_imagebox_width = 480
+dalle_imagebox_height = 480
+
 # Disable SSL verification
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
@@ -58,7 +62,7 @@ def search_bing_images(query, bing_picture_box, bing_url_text):
         with urllib.request.urlopen(image_url,context=ssl_context) as url:
             image_data = url.read()
         image = Image.open(BytesIO(image_data))
-        image = image.resize((300, 300), Image.ANTIALIAS)
+        image = image.resize((dalle_imagebox_width, dalle_imagebox_height))
         photo = ImageTk.PhotoImage(image)
         bing_picture_box.configure(image=photo)
         bing_picture_box.image = photo

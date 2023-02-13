@@ -3,3 +3,4 @@ requests
 Pillow
 openai
 bing_image_urls
+Stability_sdk

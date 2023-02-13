@@ -12,6 +12,10 @@ from PIL import Image, ImageTk
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
+#setting image box size for this UI application.
+dalle_imagebox_width = 480
+dalle_imagebox_height = 480
+
 # Set up logging
 # Create a logger and set the log level
 logger = logging.getLogger('AiAssetsGenerator')
@@ -86,7 +90,7 @@ def generate_stablediffusion_image(prompt,engine,steps,scale:float,sampler,image
                     )
                 if artifact.type == generation.ARTIFACT_IMAGE:
                     image = output_image = Image.open(io.BytesIO(artifact.binary))
-                    image = image.resize((300, 300))
+                    image = image.resize((dalle_imagebox_width, dalle_imagebox_height))
                     img_tk = ImageTk.PhotoImage(image)
                     image_box.configure(image=img_tk)
                     image_box.image = img_tk

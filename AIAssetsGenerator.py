@@ -1,3 +1,13 @@
+# AI Assets Generator is tool that uses OpenAI's GPT-3 API, DeepAI's API, Bing's API, and Stable Diffusion's API to generate images.
+# The tool is written in Python and uses the tkinter library for the GUI.
+# The tool is designed to be used with the Unity game engines and is intended to be used with the Unity Asset Store.
+# This can generate AI Based assets for games, movies, and other media.
+# Author: H. M. (Haseeb M.)
+# version: 1.1.0
+# Date: 2021-08-01.
+
+
+# Import the required libraries
 import tkinter as tk
 from tkinter import ttk
 import tkinter.filedialog as filedialog
@@ -6,7 +16,7 @@ from BingSearch import search_bing_images, save_bing_image, clear_bing_images
 from DeepAI import generate_deepai_image, save_deepai_image, clear_deepai_image
 from StableDiffusion import generate_stablediffusion_image, save_stablediffusion_image, clear_stablediffusion_image
 
-# Define the Sampler options as a dictionary. STABLE_DIFFUSION_SAMPLERS
+# Define the Sampler options as a dictionary.
 STABLE_DIFFUSION_SAMPLERS = {
     "SAMPLER_DDIM": 0,
     "SAMPLER_DDPM": 1,
@@ -22,11 +32,11 @@ STABLE_DIFFUSION_SAMPLERS = {
 
 # Define the engine options as a list.
 STABLE_DIFFUSION_ENGINE = [
-    "stable-diffusion-v1",
-    "stable-diffusion-v1-5",
-    "stable-diffusion-512-v2-0",
-    "stable-diffusion-768-v2-0",
-    "stable-diffusion-512-v2-1",
+    "stable-diffusion-v1", # This is version 1.0
+    "stable-diffusion-v1-5", # This is version 1.5
+    "stable-diffusion-512-v2-0",# This is version 2.0
+    "stable-diffusion-768-v2-0", 
+    "stable-diffusion-512-v2-1", # This is version 2.1
     "stable-diffusion-768-v2-1",
     "stable-inpainting-v1-0",
     "stable-inpainting-512-v2-0",
@@ -34,45 +44,60 @@ STABLE_DIFFUSION_ENGINE = [
 
 # Create the main window
 window = tk.Tk()
-window.title("AI Assets Generator")
-window.geometry("800x600")
+window.title("AI Assets Generator - HM")
+window.geometry("700x700")
 
 # Create a tabbed layout using ttk Notebook
 tab_control = ttk.Notebook(window)
 tab_control.pack(expand=True, fill='both')
 
-#Frame for the OpenAI Image
+# Frame for the OpenAI Image
 def create_openai_section(openai_frame):
-    openai_main_frame = tk.Frame(openai_frame)
-    openai_main_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    main_frame = tk.Frame(openai_frame)
+    main_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     # Create a label and text box for the OpenAI Image prompt
-    prompt_label = tk.Label(openai_main_frame, text="Enter Prompt:")
+    prompt_label = tk.Label(main_frame, text="Enter Prompt:")
     prompt_label.grid(row=0, column=0, padx=5, pady=5, sticky='w')
-    prompt_text = tk.Entry(openai_main_frame, width=50)
+    prompt_text = tk.Entry(main_frame, width=50)
     prompt_text.grid(row=0, column=1, columnspan=2, padx=5, pady=5, sticky='ns')
 
+    # Create inputs for OpenAI Diffusion resolution
+    resolution_label = tk.Label(main_frame, text="Resolution:")
+    resolution_label.grid(row=2, column=0, padx=5, pady=5, sticky='w')
+    width_text_var = tk.IntVar(main_frame)
+    width_text_var.set(512)
+    width_text = tk.Entry(main_frame, width=10,textvariable=width_text_var)
+    width_text.grid(row=2, column=1, padx=5, pady=5, sticky='w')
+    
+    height_text_var = tk.IntVar(main_frame)
+    height_text_var.set(512)
+    height_text = tk.Entry(main_frame, width=10,textvariable=height_text_var)
+    height_text.grid(row=2, column=2, padx=5, pady=5, sticky='w')
+    
+    resoulution_text = str(width_text_var.get()) + "x" + str(height_text_var.get())
+
     # Create a picture box for the OpenAI Image
-    picture_box = tk.Label(openai_main_frame)
-    picture_box.grid(row=1, column=0, columnspan=4, padx=5, pady=5, sticky='ns')
+    picture_box = tk.Label(main_frame)
+    picture_box.grid(row=3, column=0, columnspan=4, padx=5, pady=5, sticky='ns')
 
     # Create a text box for the OpenAI Image URL
-    url_text = tk.Text(openai_main_frame, height=2, width=50)
-    url_text.grid(row=2, column=0, columnspan=4, padx=5, pady=5, sticky='ns')
+    url_text = tk.Text(main_frame, height=2, width=50)
+    url_text.grid(row=4, column=0, columnspan=4, padx=5, pady=5, sticky='ns')
 
     # Create a button to generate the OpenAI Image
-    generate_button = tk.Button(openai_main_frame, text="Generate Image", command=lambda: generate_openai_image(prompt_text.get(), picture_box, url_text))
-    generate_button.grid(row=3, column=0, padx=5, pady=5)
+    generate_button = tk.Button(main_frame, text="Generate Image", command=lambda: generate_openai_image(prompt_text.get(), picture_box, url_text,resoulution_text))
+    generate_button.grid(row=5, column=0, padx=5, pady=5)
 
-    save_button = tk.Button(openai_main_frame, text="Save Image", command=lambda: save_openai_image(url_text.get("1.0", "end").strip(), url_text))
-    save_button.grid(row=3, column=1, padx=5, pady=5)
+    save_button = tk.Button(main_frame, text="Save Image", command=lambda: save_openai_image(url_text.get("1.0", "end").strip(), url_text))
+    save_button.grid(row=5, column=1, padx=5, pady=5)
 
-    clear_button = tk.Button(openai_main_frame, text="Clear Image", command=lambda: clear_openai_image(prompt_text, picture_box, url_text))
-    clear_button.grid(row=3, column=2, padx=5, pady=5)
+    clear_button = tk.Button(main_frame, text="Clear Image", command=lambda: clear_openai_image(prompt_text, picture_box, url_text))
+    clear_button.grid(row=5, column=2, padx=5, pady=5)
 
     # Center the buttons within the main frame
-    openai_main_frame.grid_columnconfigure(0, weight=1)
-    openai_main_frame.grid_columnconfigure(3, weight=1)
+    main_frame.grid_columnconfigure(0, weight=1)
+    main_frame.grid_columnconfigure(3, weight=1)
 
 # Frame for the Bing Search
 def create_bing_search_section(bing_search_frame):
@@ -225,9 +250,11 @@ def show_help():
 
     help_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
     help_text.insert(tk.END, "Welcome to the AI Assets Generator!\n\n")
-    help_text.insert(tk.END, "This application allows you to generate images using the OpenAI DALL-E API, DeepAI, and Bing Search.\n\n")
+    help_text.insert(tk.END, "This application allows you to generate images using the OpenAI DALL-E API,Stable Diffusion, DeepAI, and Bing Search.\n\n")
     help_text.insert(tk.END, "OpenAI DALL-E:\n")
-    help_text.insert(tk.END, "Enter a prompt for the image you want to generate and click 'Generate Image'. The generated image will appear in the picture box.\n\n")
+    help_text.insert(tk.END, "Enter a prompt for the image you want to generate set the settings and click 'Generate Image'. The generated image will appear in the picture box.\n\n")
+    help_text.insert(tk.END, "Stable Diffusion:\n")
+    help_text.insert(tk.END, "Enter a prompt for the image you want to generate  set the settings and click 'Generate Image'. The generated image will appear in the picture box.\n\n")
     help_text.insert(tk.END, "DeepAI:\n")
     help_text.insert(tk.END, "Enter the desired parameters and click 'Generate Image'. The generated image will appear in the picture box.\n\n")
     help_text.insert(tk.END, "Bing Search:\n")
@@ -239,6 +266,7 @@ def show_help():
     ok_button.pack(pady=10)
 
 
+# Starting application here.
 if __name__ == "__main__":
 
     openai_tab = ttk.Frame(tab_control)

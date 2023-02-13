@@ -75,15 +75,6 @@ def generate_deepai_image(prompt, save_url, picture_box):
         logger.error(f"Exception in File {file} and method {func}() at line {line}: {e}")
         messagebox.showerror("ERROR","Exception occured please check the log file for more details.")
 
-# Create a button to clear the OpenAI Image section
-def clear_deepai_image(openai_prompt_text, openai_picture_box, openai_url_text):
-    openai_prompt_text.delete(0, tk.END)
-    openai_picture_box.image = None
-    openai_picture_box.configure(image=tk.PhotoImage())
-    openai_url_text.delete('1.0', tk.END)
-
-    logger.info("Cleared DeepAI image section")
-
 def save_deepai_image(image_url, save_url_text):
     try:
         if image_url:
@@ -109,3 +100,13 @@ def save_deepai_image(image_url, save_url_text):
         file, line, func, text = tb[-1]
         logger.error(f"Exception in File {file} and method {func}() at line {line}: {e}")
         messagebox.showerror("ERROR","Exception occured please check the log file for more details.")
+        
+
+# Create a button to clear the OpenAI Image section
+def clear_deepai_image(openai_prompt_text, openai_picture_box, openai_url_text):
+    openai_prompt_text.delete(0, tk.END)
+    openai_picture_box.image = None
+    openai_picture_box.configure(image=tk.PhotoImage())
+    openai_url_text.delete('1.0', tk.END)
+
+    logger.info("Cleared DeepAI image section")
