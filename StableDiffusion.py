@@ -12,10 +12,6 @@ from PIL import Image, ImageTk
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
-#setting image box size for this UI application.
-dalle_imagebox_width = 480
-dalle_imagebox_height = 480
-
 # Set up logging
 # Create a logger and set the log level
 logger = logging.getLogger('AiAssetsGenerator')
