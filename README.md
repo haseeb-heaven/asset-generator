@@ -5,7 +5,8 @@
 </p>
 
 AI Assets Generator is tool for generating **A.I** powered images. This tool can also be used as an AI game Asset art generator with the Power of **DALL-E** and **Stable-Diffusion** you can generate high quality images for your Assets which can be used directly in your Game or Media.
-
+- **Support this Project** <a href="https://www.buymeacoffee.com/haseebheaven"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=haseebheaven&button_colour=40DCA5&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
+# LangChain Coder
 ## AI Assets Generator App.
 <p align="center">
     <img src="https://raw.githubusercontent.com/haseeb-heaven/AI-Assets-Generator/main/resources/dalle-image.png" alt="dall-e" width="800"/>
